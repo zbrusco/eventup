@@ -1,38 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { BsStarFill } from "react-icons/bs";
-import { getHostVans } from "../../../api";
+import { getHostEvents } from "../../../api";
 import style from "./Dashboard.module.css";
 
 export default function Dashboard() {
-  const [vans, setVans] = React.useState([]);
+  const [events, setEvents] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   React.useEffect(() => {
     setLoading(true);
-    getHostVans()
-      .then((data) => setVans(data))
+    getHostEvents()
+      .then((data) => setEvents(data))
       .catch((err) => setError(err))
       .finally(() => setLoading(false));
   }, []);
 
-  function renderVanElements(vans) {
-    const hostVansEls = vans.map((van) => (
-      <div className={style.host_van_single} key={van.id}>
-        <img src={van.imageUrl} alt={`Photo of ${van.name}`} />
-        <div className={style.host_van_info}>
-          <h3>{van.name}</h3>
-          <p>${van.price}/day</p>
+  function renderEventElements(events) {
+    const hostEventsEls = events.map((event) => (
+      <div className={style.host_event_single} key={event.id}>
+        <img src={event.imageUrl} alt={`Photo of ${event.name}`} />
+        <div className={style.host_event_info}>
+          <h3>{event.name}</h3>
+          <p>${event.price}/day</p>
         </div>
-        <Link className={style.host_dashboard_link} to={`vans/${van.$id}`}>
+        <Link className={style.host_dashboard_link} to={`events/${event.$id}`}>
           View
         </Link>
       </div>
     ));
 
     return (
-      <div className={style.host_vans_list}>
-        <section>{hostVansEls}</section>
+      <div className={style.host_events_list}>
+        <section>{hostEventsEls}</section>
       </div>
     );
   }
@@ -71,20 +71,20 @@ export default function Dashboard() {
           Details
         </Link>
       </section>
-      <section className={style.host_dashboard_vans}>
+      <section className={style.host_dashboard_events}>
         <div className={style.top}>
-          <h2>Your listed vans</h2>
-          <Link className={style.host_dashboard_link} to="vans">
+          <h2>Your listed events</h2>
+          <Link className={style.host_dashboard_link} to="events">
             View all
           </Link>
         </div>
-        {loading && !vans ? (
+        {loading && !events ? (
           <h1>Loading...</h1>
         ) : (
-          <>{renderVanElements(vans)}</>
+          <>{renderEventElements(events)}</>
         )}
         {/*<React.Suspense fallback={<h3>Loading...</h3>}>
-                    <Await resolve={loaderData.vans}>{renderVanElements}</Await>
+                    <Await resolve={loaderData.events}>{renderEventElements}</Await>
                 </React.Suspense>*/}
       </section>
     </>

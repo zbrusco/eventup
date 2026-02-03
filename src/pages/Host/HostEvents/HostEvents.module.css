@@ -1,19 +1,19 @@
-.host_van_title {
+.host_events_title {
   margin: 0;
   font-size: 2rem;
   font-weight: bold;
 }
-.host_van_container {
+.host_events_container {
   display: flex;
   flex-direction: column;
   gap: 15px;
   padding: 2rem 1.5rem;
 }
-.host_van_section {
+.host_events_section {
   background: inherit;
   padding: 0 1rem;
 }
-.host_van_wrapper {
+.host_events_wrapper {
   background: white;
   border-radius: 10px;
   padding: 1.25rem 1.5rem;
@@ -25,10 +25,10 @@
   gap: 15px;
   align-items: center;
 }
-.host_van_wrapper > img {
+.host_events_wrapper > img {
   height: 100%;
   border-radius: 5px;
 }
-.host_van_info > p {
+.host_events_info > p {
   color: #4d4d4d;
 }

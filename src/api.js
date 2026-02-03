@@ -1,21 +1,22 @@
 import { account, databases, Query } from "./appwrite";
 
 const databaseId = import.meta.env.VITE_APPWRITE_DATABASE_ID;
-const collectionId = import.meta.env.VITE_APPWRITE_VANS_COLLECTION_ID;
+const collectionId = import.meta.env.VITE_APPWRITE_EVENTS_COLLECTION_ID;
+const registrationsId = import.meta.env.VITE_APPWRITE_REGISTRATIONS_ID;
 
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(() => resolve(), ms));
 }
 
-export async function getVans(id) {
+export async function getEvents(documentId) {
   try {
-    if (id) {
-      const van = await databases.getDocument({
-        databaseId: databaseId,
-        collectionId: collectionId,
-        documentId: id,
+    if (documentId) {
+      const event = await databases.getDocument({
+        databaseId,
+        collectionId,
+        documentId: documentId,
       });
-      return van;
+      return event;
     }
     const response = await databases.listDocuments({
       databaseId,
@@ -24,22 +25,21 @@ export async function getVans(id) {
     return response.documents;
   } catch (error) {
     throw {
-      message: "Failed to fetch vans",
+      message: "Failed to fetch Events",
       statusText: error.message,
       status: error.code,
     };
   }
 }
-
-export async function getHostVans(id) {
+export async function getHostEvents(documentId) {
   try {
-    if (id) {
-      const van = await databases.getDocument({
+    if (documentId) {
+      const event = await databases.getDocument({
         databaseId,
         collectionId,
-        documentId: id,
+        documentId,
       });
-      return van;
+      return event;
     }
     const user = await account.get();
     const response = await databases.listDocuments({
@@ -50,7 +50,7 @@ export async function getHostVans(id) {
     return response.documents;
   } catch (error) {
     throw {
-      message: "Failed to fetch host vans",
+      message: "Failed to fetch host Events",
       statusText: error.code === 401 ? "Unauthorized" : error.message,
       status: error.code,
     };

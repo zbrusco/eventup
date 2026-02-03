@@ -57,21 +57,21 @@
   color: #161616;
 }
 
-.host_dashboard_vans {
+.host_dashboard_events {
   padding: 38px 26px;
 }
 
-.host_dashboard_vans > .top {
+.host_dashboard_events > .top {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.host_dashboard_vans .host_vans_list {
+.host_dashboard_events .host_events_list {
   padding-inline: 0;
 }
 
-.host_van_single {
+.host_event_single {
   display: flex;
   align-items: center;
   background-color: white;
@@ -79,23 +79,23 @@
   padding: 18px 24px;
 }
 
-.host_van_single > img {
+.host_event_single > img {
   height: 70px;
   border-radius: 5px;
   margin-right: 17px;
 }
 
-.host_van_info {
+.host_event_info {
   margin-right: auto;
 }
 
-.host_van_info h3 {
+.host_event_info h3 {
   font-size: 20px;
   font-weight: 600;
   margin-block: 10px;
 }
 
-.host_van_info p {
+.host_event_info p {
   margin-block: 10px;
 }
 

@@ -1,10 +1,10 @@
-.host_van_photo {
+.host_event_photo {
   display: flex;
   flex-direction: row;
   height: 100px;
   gap: 2rem;
 }
-.host_van_photo > img {
+.host_event_photo > img {
   height: 100%;
   border-radius: 5px;
 }

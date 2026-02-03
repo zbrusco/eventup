@@ -1,7 +1,7 @@
-.host_van_pricing {
+.host_event_pricing {
   color: #4d4d4d;
 }
-.host_van_pricing > span {
+.host_event_pricing > span {
   font-size: 1.5rem;
   color: #161616;
 }

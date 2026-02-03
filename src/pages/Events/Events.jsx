@@ -1,10 +1,10 @@
-import style from "./Vans.module.css";
+import style from "./Events.module.css";
 import React from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { getVans } from "../../api";
+import { getEvents } from "../../api";
 
-export default function Vans() {
-  const [vans, setVans] = React.useState(null);
+export default function Events() {
+  const [events, setEvents] = React.useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -12,25 +12,27 @@ export default function Vans() {
   const typeFilter = searchParams.get("type") ? searchParams.get("type") : "";
 
   React.useEffect(() => {
-    async function loadVans() {
+    async function loadEvents() {
       setLoading(true);
       try {
-        const data = await getVans();
-        setVans(data);
+        const data = await getEvents();
+        setEvents(data);
       } catch (err) {
         setError(err);
       } finally {
         setLoading(false);
       }
     }
-    loadVans();
+    loadEvents();
   }, []);
 
-  let types = [];
-  let vansFiltered = null;
-  if (vans) {
-    types = Array.from(new Set(vans.map((van) => van.type)));
-    vansFiltered = vans.filter((van) => van.type.includes(typeFilter));
+  let statuses = [];
+  let eventsFiltered = null;
+  if (events) {
+    statuses = Array.from(new Set(events.map((event) => event.status)));
+    eventsFiltered = events.filter((event) =>
+      event.status.includes(typeFilter),
+    );
   }
 
   function handleFilterChange(key, value) {
@@ -52,16 +54,16 @@ export default function Vans() {
   }
 
   return (
-    <div className={style.vans_container}>
-      <h1>Explore our van options</h1>
-      {vansFiltered && (
+    <div className={style.events_container}>
+      <h1>Explore our event options</h1>
+      {eventsFiltered && (
         <>
-          <div className={style.vans_filters}>
-            {types.map((type) => (
+          <div className={style.events_filters}>
+            {statuses.map((type) => (
               <button
                 key={type}
-                className={`${style.vans_type_btn}
-                  ${typeFilter === type ? style.vans_type_selected : ""}
+                className={`${style.events_type_btn}
+                  ${typeFilter === type ? style.events_type_selected : ""}
                 `}
                 onClick={() => handleFilterChange("type", type)}
               >
@@ -70,37 +72,40 @@ export default function Vans() {
             ))}
             {typeFilter && (
               <button
-                className={style.vans_filter_btn}
+                className={style.events_filter_btn}
                 onClick={() => handleFilterChange("type", null)}
               >
                 Clear
               </button>
             )}
           </div>
-          <div className={style.vanscard_container}>
-            {vansFiltered.map((van) => (
+          <div className={style.eventscard_container}>
+            {eventsFiltered.map((event) => (
               <Link
-                to={van.$id}
-                key={van.$id}
-                className={style.vanscard_link}
+                to={event.$id}
+                key={event.$id}
+                className={style.eventscard_link}
                 state={{
                   search: `?${searchParams.toString()}`,
                   type: typeFilter,
                 }}
               >
-                <div className={style.vanscard_card}>
+                <div className={style.eventscard_card}>
                   <img
-                    src={van.imageUrl}
-                    alt={van.name}
-                    className={style.vanscard_img}
+                    src={event.imageUrl}
+                    alt={event.name}
+                    className={style.eventscard_img}
                   />
-                  <div className={style.vanscard_title}>
-                    <h1>{van.name}</h1>
-                    <h1>${van.price}</h1>
+                  <div className={style.eventscard_title}>
+                    <h1>{event.name}</h1>
+                    <h1>${event.price}</h1>
                   </div>
                   <p>/day</p>
-                  <div className={`${style.vanscard_badge} ${style[van.type]}`}>
-                    {van.type.charAt(0).toUpperCase() + van.type.slice(1)}
+                  <div
+                    className={`${style.eventscard_badge} ${style[event.status]}`}
+                  >
+                    {event.status.charAt(0).toUpperCase() +
+                      event.status.slice(1)}
                   </div>
                 </div>
               </Link>

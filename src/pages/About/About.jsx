@@ -1,33 +1,40 @@
 import styles from "./About.module.css";
-import AboutVan from "../../assets/images/about-hero.png";
+import AboutEvent from "../../assets/images/about-hero.png";
 import { Link } from "react-router-dom";
 
 export default function About() {
   return (
     <div className={styles.container}>
-      <img src={AboutVan} alt="Van Image" className={styles.about_img} />
+      <img
+        src={AboutEvent}
+        alt="EventUp Community"
+        className={styles.about_img}
+      />
       <div className={styles.about_content}>
         <article className={styles.about_article}>
           <h1 className={styles.about_title}>
-            Don't squeeze in a sedan when you could relax in a van.
+            Don't stay on the sidelines when you could collaborate with your
+            neighbors.
           </h1>
           <p className={styles.about_paragraph}>
-            Our mission is to enliven your road trip with the perfect travel van
-            rental. Our vans are recertified before each trip to ensure your
-            travel plans can go off without a hitch. (Hitch costs extra 😉)
+            Our mission is to simplify community event management through a
+            collaborative platform. We want to ensure that workshops, fairs, and
+            local projects are organized seamlessly, connecting those who want
+            to act with those who want to participate.
           </p>
           <p className={styles.about_paragraph}>
-            Our team is full of vanlife enthusiasts who know firsthand the magic
-            of touring the world on 4 wheels.
+            Our team believes in the power of local unity and in providing
+            simple tools that help organizers and participants transform their
+            surroundings.
           </p>
         </article>
         <div className={styles.about_card}>
           <h2 className={styles.about_title}>
-            Your destination is waiting. <br />
-            Your van is ready.
+            Your next event is waiting. <br />
+            The community is ready.
           </h2>
-          <Link to="/vans" className={styles.about_button}>
-            Explore our vans
+          <Link to="/events" className={styles.about_button}>
+            Explore events
           </Link>
         </div>
       </div>

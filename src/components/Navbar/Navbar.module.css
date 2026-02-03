@@ -8,10 +8,8 @@
 }
 .navbar_logo {
   max-width: 30%;
-}
-.navbar_logo > img {
-  width: 100%;
-  max-height: 40px;
+  text-decoration: none;
+  color: inherit;
 }
 .navbar_nav {
   display: flex;

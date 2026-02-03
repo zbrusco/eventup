@@ -6,14 +6,14 @@ export default function Home() {
     <div className={styles.home_container}>
       <div className={styles.home_content}>
         <h1 className={styles.home_title}>
-          You got the travel plans, we got the travel vans.
+          You have the initiative, we have the community.
         </h1>
         <p className={styles.home_paragraph}>
-          Add adventure to your life by joining the #vanlife movement. Rent the
-          perfect van to make your perfect road trip.
+          Create, discover, and collaborate on local events to drive community
+          engagement.
         </p>
-        <Link to="/vans" className={styles.home_button}>
-          Find your van
+        <Link to="/events" className={styles.home_button}>
+          Find events
         </Link>
       </div>
     </div>

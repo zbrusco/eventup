@@ -1,27 +1,26 @@
-import style from "./HostVanLayout.module.css";
+import style from "./HostEventLayout.module.css";
 import React from "react";
 import { useParams, NavLink, Outlet } from "react-router-dom";
-import { getHostVans } from "../../../api";
+import { getHostEvents } from "../../../api";
 
 export default function HostVanDetail() {
-  const [van, setVan] = React.useState(null);
+  const [event, setEvent] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const { id } = useParams();
-
   React.useEffect(() => {
-    async function loadVans() {
+    async function loadEvents() {
       setLoading(true);
       try {
-        const data = await getHostVans(id);
-        setVan(data);
+        const data = await getHostEvents(id);
+        setEvent(data);
       } catch (err) {
         setError(err);
       } finally {
         setLoading(false);
       }
     }
-    loadVans();
+    loadEvents();
   }, [id]);
 
   const styles = {
@@ -30,7 +29,7 @@ export default function HostVanDetail() {
     color: "#161616",
   };
 
-  if (loading || !van) {
+  if (loading || !event) {
     return <h1 aria-live="polite">Loading...</h1>;
   }
   if (error) {
@@ -38,30 +37,30 @@ export default function HostVanDetail() {
   }
 
   return (
-    <div className={style["host_van_detail_container"]}>
+    <div className={style["host_event_detail_container"]}>
       <NavLink
         to=".."
         relative="path"
-        className={style["host_van_detail_link"]}
+        className={style["host_event_detail_link"]}
       >
-        ← Back to all vans
+        ← Back to all events
       </NavLink>
-      <div className={style["host_van_detail_content"]}>
-        <div className={style["host_van_detail_title"]}>
-          <img src={van.imageUrl} />
-          <div className={style["host_van_detail_title_content"]}>
+      <div className={style["host_event_detail_content"]}>
+        <div className={style["host_event_detail_title"]}>
+          <img src={event.imageUrl} />
+          <div className={style["host_event_detail_title_content"]}>
             <div
-              className={`${style.host_van_detail_badge} ${style[van.type]}`}
+              className={`${style.host_event_detail_badge} ${style[event.status]}`}
             >
-              {van.type.charAt(0).toUpperCase() + van.type.slice(1)}
+              {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
             </div>
-            <h2>{van.name}</h2>
-            <p className={style["host_van_detail_price"]}>
-              <span>${van.price}</span>/day
+            <h2>{event.name}</h2>
+            <p className={style["host_event_detail_price"]}>
+              <span>${event.price}</span>/day
             </p>
           </div>
         </div>
-        <div className={style["host_van_detail_navbar"]}>
+        <div className={style["host_event_detail_navbar"]}>
           <NavLink
             style={({ isActive }) => (isActive ? styles : null)}
             index
@@ -83,7 +82,7 @@ export default function HostVanDetail() {
             Photos
           </NavLink>
         </div>
-        <Outlet context={{ van }} />
+        <Outlet context={{ event }} />
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
-.host_van_detail_description {
+.host_event_detail_description {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.host_van_detail_description > p > span {
+.host_event_detail_description > p > span {
   font-weight: bold;
 }

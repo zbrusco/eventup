@@ -5,17 +5,17 @@ import {
   Dashboard,
   Home,
   HostLayout,
-  HostVanDetail,
-  HostVanLayout,
-  HostVanPricing,
-  HostVanPhotos,
-  HostVans,
+  HostEventDetail,
+  HostEventLayout,
+  HostEventPricing,
+  HostEventPhotos,
+  HostEvents,
   Login,
   NotFound,
   Income,
   Reviews,
-  VanDetail,
-  Vans,
+  EventDetail,
+  Events,
 } from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
@@ -28,19 +28,19 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
-          <Route path="vans" element={<Vans />} />
-          <Route path="vans/:id" element={<VanDetail />} />
+          <Route path="events" element={<Events />} />
+          <Route path="events/:id" element={<EventDetail />} />
 
           <Route element={<AuthRequired />}>
             <Route path="host" element={<HostLayout />}>
               <Route index element={<Dashboard />} />
               <Route path="income" element={<Income />} />
               <Route path="reviews" element={<Reviews />} />
-              <Route path="vans" element={<HostVans />} />
-              <Route path="vans/:id" element={<HostVanLayout />}>
-                <Route index element={<HostVanDetail />} />
-                <Route path="pricing" element={<HostVanPricing />} />
-                <Route path="photos" element={<HostVanPhotos />} />
+              <Route path="events" element={<HostEvents />} />
+              <Route path="events/:id" element={<HostEventLayout />}>
+                <Route index element={<HostEventDetail />} />
+                <Route path="pricing" element={<HostEventPricing />} />
+                <Route path="photos" element={<HostEventPhotos />} />
               </Route>
             </Route>
           </Route>

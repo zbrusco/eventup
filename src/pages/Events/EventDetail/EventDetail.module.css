@@ -1,15 +1,15 @@
-.van-detail_container {
+.event-detail_container {
   background: #fff7ed;
   padding: 2rem;
 }
-.van-detail_container > a {
+.event-detail_container > a {
   text-decoration: none;
   color: inherit;
 }
-.van-detail_container > a:hover {
+.event-detail_container > a:hover {
   text-decoration: underline;
 }
-.van-detail_content {
+.event-detail_content {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -17,12 +17,12 @@
   margin: 0 auto;
   max-width: 500px;
 }
-.van-detail_content > img {
+.event-detail_content > img {
   width: 100%;
   aspect-ratio: 1/1;
   border-radius: 5px;
 }
-.van-detail_badge {
+.event-detail_badge {
   display: inline-block;
   width: fit-content;
   color: #ffead0;
@@ -42,7 +42,7 @@
 .simple {
   background: #e17654;
 }
-.van-detail_btn {
+.event-detail_btn {
   width: 100%;
   color: white;
   font-weight: 600;
@@ -52,22 +52,22 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.van-detail_btn:hover {
+.event-detail_btn:hover {
   background: #e67d32;
 }
-.van-detail_content > p {
+.event-detail_content > p {
   margin: 0;
 }
-.van-detail_content > h2 {
+.event-detail_content > h2 {
   margin: 0;
   font-size: 32px;
   font-weight: bold;
 }
-.van-detail_price {
+.event-detail_price {
   margin: 0;
   font-size: 20px;
 }
-.van-detail_price > span {
+.event-detail_price > span {
   font-size: 24px;
   font-weight: bold;
 }

@@ -1,5 +1,4 @@
 import style from "./Navbar.module.css";
-import logo from "../../assets/images/logo.png";
 import avatarIcon from "../../assets/images/avatar-icon.png";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import React from "react";
@@ -26,7 +25,7 @@ export default function Navbar() {
   return (
     <div className={style.navbar_container}>
       <NavLink to="/" className={style.navbar_logo} end>
-        <img src={logo} alt="VanLife Logo" />
+        <h1>#EVENTUP</h1>
       </NavLink>
       <nav className={style.navbar_nav}>
         <NavLink
@@ -49,9 +48,9 @@ export default function Navbar() {
           className={({ isActive }) =>
             isActive ? style.navbar_selected : null
           }
-          to="/vans"
+          to="/events"
         >
-          Vans
+          Events
         </NavLink>
         <Link to={user ? "host" : "login"} className={style.login_link}>
           <img src={avatarIcon} className={style.login_icon} />
