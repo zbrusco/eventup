@@ -1,0 +1,65 @@
+.host_reviews {
+  padding-inline: 26px;
+  color: #161616;
+}
+
+.host_reviews .top_text {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.host_reviews .top_text > h2 {
+  font-weight: 700;
+  font-size: 32px;
+  margin: 0;
+  margin-right: 20px;
+}
+
+.host_reviews .top_text > p {
+  margin: 0;
+  color: #4d4d4d;
+}
+
+.host_reviews .top_text > p span {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.host_reviews > img {
+  margin-bottom: 36px;
+}
+
+.host_reviews .review {
+  margin-block: 25px;
+}
+
+.host_reviews .review .info {
+  display: flex;
+}
+
+.host_reviews .review .name {
+  color: #161616;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.host_reviews .review .date {
+  color: #8c8c8c;
+}
+
+.host_reviews hr {
+  background-color: #c7c7c7;
+  height: 1px;
+  border: 0;
+}
+
+.host_reviews .review_star {
+  color: #ff8c38;
+  margin-right: 5px;
+}
+
+img.graph {
+  width: 100%;
+  max-width: 500px;
+}

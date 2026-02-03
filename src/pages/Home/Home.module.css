@@ -1,0 +1,47 @@
+.home_container {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  background-image: url("../../assets/images/home-hero.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: left;
+  justify-content: center;
+}
+.home_content {
+  width: 80%;
+  margin: 0 auto;
+}
+.home_title {
+  margin: 4rem auto 1.5rem auto;
+  font-weight: bolder;
+}
+.home_paragraph {
+  margin: 0 auto;
+}
+
+.home_button {
+  margin: 3rem auto;
+  width: 100%;
+  font-weight: 600;
+  border: none;
+  color: white;
+  background: #ff8c38;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0.75rem 0;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.home_button:hover {
+  background: #e67d32;
+}
+
+@media (min-width: 992px) {
+  .home_container {
+    min-height: 100vh;
+  }
+}

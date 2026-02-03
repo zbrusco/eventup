@@ -1,0 +1,104 @@
+.vans_container {
+  background: #fff7ed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 3.5rem;
+}
+.vans_filters {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.vans_type_btn {
+  background: #ffead0;
+  color: #4d4d4d;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+.vans_type_btn:hover {
+  background: #e0ceb1;
+}
+.vans_filter_btn {
+  align-content: center;
+  border: none;
+  background: transparent;
+  text-decoration: underline;
+  color: #4d4d4d;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.vans_filter_btn:hover {
+  color: #747373;
+}
+.vans_type_selected {
+  color: #f7f7f7;
+  background: #e17654;
+}
+.vans_type_selected:hover {
+  background: #e17654;
+}
+.vanscard_container {
+  background: #fff7ed;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin: 3rem auto;
+  width: 90%;
+}
+.vanscard_card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 230px;
+}
+.vanscard_img {
+  aspect-ratio: 1/1;
+  border-radius: 5px;
+}
+.vanscard_link {
+  text-decoration: none;
+  color: inherit;
+}
+.vanscard_badge {
+  display: inline-block;
+  width: fit-content;
+  color: #ffead0;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background: #414040;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-top: -1rem;
+}
+.vanscard_title {
+  display: flex;
+  justify-content: space-between;
+}
+.vanscard_title > h1 {
+  font-weight: 600;
+  font-size: 20px;
+  margin: 0;
+}
+.vanscard_card > p {
+  margin: -0.5rem 0;
+  text-align: right;
+}
+.rugged {
+  background: #115e59;
+}
+.luxury {
+  background: #161616;
+}
+.simple {
+  background: #e17654;
+}

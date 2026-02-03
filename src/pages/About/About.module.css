@@ -1,0 +1,44 @@
+.container {
+  background: #fff7ed;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 3rem;
+}
+
+.about_content {
+  width: 90%;
+  margin: 0 auto;
+}
+.about_article {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.about_title,
+.about_paragraph {
+  margin: 0;
+}
+
+.about_card {
+  background: #ffcc8d;
+  padding: 2rem;
+  border-radius: 5px;
+}
+.about_button {
+  border: none;
+  color: white;
+  background-color: #161616;
+  border-radius: 10px;
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.about_button:hover {
+  background-color: #303030;
+}
