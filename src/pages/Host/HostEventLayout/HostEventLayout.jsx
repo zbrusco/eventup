@@ -81,6 +81,12 @@ export default function HostVanDetail() {
           >
             Photos
           </NavLink>
+          <NavLink
+            style={({ isActive }) => (isActive ? styles : null)}
+            to="participants"
+          >
+            Participants
+          </NavLink>
         </div>
         <Outlet context={{ event }} />
       </div>

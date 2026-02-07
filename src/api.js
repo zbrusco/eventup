@@ -1,20 +1,21 @@
-import { account, databases, Query } from "./appwrite";
+import { account, databases, Query, ID } from "./appwrite";
 
 const databaseId = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 const collectionId = import.meta.env.VITE_APPWRITE_EVENTS_COLLECTION_ID;
 const registrationsId = import.meta.env.VITE_APPWRITE_REGISTRATIONS_ID;
+const usersId = import.meta.env.VITE_APPWRITE_USERS_ID;
 
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(() => resolve(), ms));
 }
 
-export async function getEvents(documentId) {
+export async function getEvents(eventId) {
   try {
-    if (documentId) {
+    if (eventId) {
       const event = await databases.getDocument({
         databaseId,
         collectionId,
-        documentId: documentId,
+        documentId: eventId,
       });
       return event;
     }
@@ -31,13 +32,13 @@ export async function getEvents(documentId) {
     };
   }
 }
-export async function getHostEvents(documentId) {
+export async function getHostEvents(eventId) {
   try {
-    if (documentId) {
+    if (eventId) {
       const event = await databases.getDocument({
         databaseId,
         collectionId,
-        documentId,
+        documentId: eventId,
       });
       return event;
     }
@@ -56,6 +57,60 @@ export async function getHostEvents(documentId) {
     };
   }
 }
+export async function getRegistrations(userId) {
+  try {
+    const response = await databases.listDocuments({
+      databaseId,
+      collectionId: registrationsId,
+      queries: [Query.equal("userId", userId)],
+    });
+
+    return response.documents;
+  } catch (error) {
+    throw { message: "Failed to fetch subscriptions", status: error.code };
+  }
+}
+export async function getUserProfile(userId) {
+  try {
+    return await databases.getDocument({
+      databaseId,
+      collectionId: usersId,
+      documentId: userId,
+    });
+  } catch (error) {
+    throw { message: "Failed to fetch profile", status: error.code };
+  }
+}
+
+export async function getEventParticipants(eventId) {
+  try {
+    const response = await databases.listDocuments({
+      databaseId,
+      collectionId: registrationsId,
+      queries: [Query.equal("eventId", eventId)],
+    });
+    const registrations = response.documents;
+    const participantsWithNames = await Promise.all(
+      registrations.map(async (reg) => {
+        const profile = await getUserProfile(reg.userId);
+        return {
+          ...reg,
+          userName: profile ? profile.name : "Usuário desconhecido",
+          userAvatar: profile ? profile.avatar : null,
+        };
+      }),
+    );
+
+    return participantsWithNames;
+  } catch (error) {
+    throw {
+      message: "Error while loading participants",
+      statusText: error.message,
+      status: error.code,
+    };
+  }
+}
+
 export async function loginUser(creds) {
   try {
     await account.createEmailPasswordSession({
@@ -83,6 +138,30 @@ export async function logoutUser() {
   } catch (error) {
     throw {
       message: "Logout failed",
+      statusText: error.message,
+      status: error.code,
+    };
+  }
+}
+
+export async function registerUser(email, password, name) {
+  try {
+    const newAcc = await account.create(ID.unique(), email, password, name);
+
+    await databases.createDocument({
+      databaseId,
+      collectionId: usersId,
+      documentId: newAcc.$id,
+      data: {
+        name: name,
+        avatar: `https://ui-avatars.com/api/?name=${name}`,
+      },
+    });
+
+    return await loginUser({ email, password });
+  } catch (error) {
+    throw {
+      message: "Erro ao criar conta",
       statusText: error.message,
       status: error.code,
     };

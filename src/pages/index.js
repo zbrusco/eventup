@@ -7,6 +7,7 @@ export { default as Dashboard } from "./Host/Dashboard/Dashboard";
 export { default as HostLayout } from "./Host/HostLayout/HostLayout";
 export { default as HostEventLayout } from "./Host/HostEventLayout/HostEventLayout";
 export { default as HostEventDetail } from "./Host/HostEventLayout/HostEventDetail/HostEventDetail";
+export { default as HostEventParticipants } from "./Host/HostEventLayout/HostEventParticipants/HostEventParticipants";
 export { default as HostEventPhotos } from "./Host/HostEventLayout/HostEventPhotos/HostEventPhotos";
 export { default as HostEventPricing } from "./Host/HostEventLayout/HostEventPricing/HostEventPricing";
 export { default as HostEvents } from "./Host/HostEvents/HostEvents";

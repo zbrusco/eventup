@@ -1,0 +1,17 @@
+.host_participants {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.host_participant {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  height: 50px;
+}
+.host_participant > img {
+  border-radius: 50%;
+  height: 100%;
+  width: auto;
+}
