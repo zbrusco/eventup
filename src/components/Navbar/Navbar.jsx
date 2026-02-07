@@ -1,20 +1,12 @@
 import style from "./Navbar.module.css";
 import avatarIcon from "../../assets/images/avatar-icon.png";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import React from "react";
 import { logoutUser } from "../../api";
-import { account } from "../../appwrite";
+import { useAuth } from "../../contexts/AuthContext/";
 
 export default function Navbar() {
-  const [user, setUser] = React.useState(null);
   const navigate = useNavigate();
-
-  React.useEffect(() => {
-    account
-      .get()
-      .then((data) => setUser(data))
-      .catch(() => setUser(null));
-  });
+  const { user, setUser } = useAuth();
 
   async function handleLogout() {
     await logoutUser();

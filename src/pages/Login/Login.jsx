@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import style from "./Login.module.css";
 import { loginUser } from "../../api";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Login() {
   const [loginFormData, setLoginFormData] = React.useState({
@@ -12,6 +13,7 @@ export default function Login() {
   const [error, setError] = React.useState(null);
   const location = useLocation();
   const navigate = useNavigate();
+  const { setUser } = useAuth();
   const from = location.state?.from || "/host";
 
   function handleSubmit(e) {
@@ -19,6 +21,7 @@ export default function Login() {
     setStatus("submitting");
     loginUser(loginFormData)
       .then((data) => {
+        setUser(data.user);
         navigate(from, { replace: true });
         setError(null);
       })

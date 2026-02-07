@@ -19,9 +19,11 @@ import {
 } from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import { AuthProvider } from "./contexts/AuthContext";
 
 export default function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
@@ -48,5 +50,6 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
