@@ -32,6 +32,7 @@ export async function getEvents(eventId) {
     };
   }
 }
+
 export async function getHostEvents(eventId) {
   try {
     if (eventId) {
@@ -57,6 +58,7 @@ export async function getHostEvents(eventId) {
     };
   }
 }
+
 export async function getRegistrations(userId) {
   try {
     const response = await databases.listDocuments({
@@ -70,6 +72,53 @@ export async function getRegistrations(userId) {
     throw { message: "Failed to fetch subscriptions", status: error.code };
   }
 }
+
+export async function getSubscribedEvents(userId) {
+  const regs = await getRegistrations(userId);
+  const detailedEvents = await Promise.all(
+    regs.map(async (reg) => {
+      const event = await getEvents(reg.eventId);
+      return {
+        ...event,
+        registrationId: reg.$id,
+      };
+    }),
+  );
+  return detailedEvents;
+}
+
+export async function getEventWithSubscription({ userId, eventId }) {
+  if (!eventId) throw { message: "Missing eventId", status: 400 };
+  try {
+    const promises = [getEvents(eventId)];
+    if (userId) {
+      promises.push(
+        databases.listDocuments({
+          databaseId,
+          collectionId: registrationsId,
+          queries: [
+            Query.equal("userId", userId),
+            Query.equal("eventId", eventId),
+          ],
+        }),
+      );
+    }
+    const [event, subscriptionResponse] = await Promise.all(promises);
+
+    return {
+      ...event,
+      isSubscribed: subscriptionResponse?.documents[0]?.eventId === eventId,
+      registrationId: subscriptionResponse?.documents[0]?.$id || null,
+    };
+  } catch (error) {
+    throw {
+      message: "Error while loading event",
+      statusText: error.message,
+      status: error.code,
+    };
+  }
+}
+
 export async function getUserProfile(userId) {
   try {
     return await databases.getDocument({
@@ -110,7 +159,14 @@ export async function getEventParticipants(eventId) {
     };
   }
 }
-
+export async function createEventParticipation({ eventId, userId }) {
+  console.log(`${userId} joined event ${eventId}`);
+  return;
+}
+export async function deleteEventParticipation({ eventId, userId }) {
+  console.log(`${userId} left event ${eventId}`);
+  return;
+}
 export async function loginUser(creds) {
   try {
     await account.createEmailPasswordSession({

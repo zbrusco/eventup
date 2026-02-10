@@ -1,10 +1,10 @@
-# EventUp 🚀
+# EventUp
 
 O **EventUp** é uma plataforma de gestão colaborativa de eventos comunitários. O projeto permite que usuários criem, descubram e se inscrevam em eventos locais, promovendo o engajamento comunitário através de uma interface moderna e responsiva.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Frontend:** React (Vite)
 - **Roteamento:** React Router (SPA)
@@ -14,7 +14,7 @@ O **EventUp** é uma plataforma de gestão colaborativa de eventos comunitários
 
 ---
 
-## ✨ Funcionalidades
+## Funcionalidades
 
 - **Autenticação:** Login, Cadastro e Gerenciamento de sessão.
 - **Dashboard de Eventos:** Listagem dinâmica com filtros por localidade.
@@ -24,7 +24,7 @@ O **EventUp** é uma plataforma de gestão colaborativa de eventos comunitários
 
 ---
 
-## 👥 Perfis para Teste (Avaliação)
+## Perfis para Teste (Avaliação)
 
 Para fins de correção e validação dos múltiplos perfis de acesso, foram criadas as seguintes contas de teste:
 
@@ -36,7 +36,7 @@ Para fins de correção e validação dos múltiplos perfis de acesso, foram cri
 
 ---
 
-## 🚀 Como Rodar o Projeto
+## Como Rodar o Projeto
 
 1. Clone o repositório:
 

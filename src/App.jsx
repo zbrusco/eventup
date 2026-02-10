@@ -49,6 +49,14 @@ export default function App() {
                   <Route path="pricing" element={<HostEventPricing />} />
                   <Route path="photos" element={<HostEventPhotos />} />
                 </Route>
+                <Route
+                  path="subscriptions"
+                  element={<HostEvents isSubscription={true} />}
+                />
+                <Route
+                  path="subscriptions/:id"
+                  element={<EventDetail isSubscription={true} />}
+                />
               </Route>
             </Route>
             <Route path="*" element={<NotFound />} />

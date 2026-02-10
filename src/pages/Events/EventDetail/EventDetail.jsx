@@ -1,21 +1,30 @@
 import style from "./EventDetail.module.css";
 import React from "react";
-import { useParams, Link, useLocation } from "react-router-dom";
-import { getEvents } from "../../../api";
+import { useParams, Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  getEventWithSubscription,
+  createEventParticipation,
+  deleteEventParticipation,
+} from "../../../api";
+import { useAuth } from "../../../contexts/AuthContext";
 
-export default function EventDetail() {
+export default function EventDetail({ isSubscription }) {
   const [event, setEvent] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-
+  const { user } = useAuth();
   const { id } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     async function loadEvents() {
       setLoading(true);
       try {
-        const data = await getEvents(id);
+        const data = await getEventWithSubscription({
+          userId: user.$id,
+          eventId: id,
+        });
         setEvent(data);
       } catch (err) {
         setError(err);
@@ -25,6 +34,23 @@ export default function EventDetail() {
     }
     loadEvents();
   }, [id]);
+
+  async function handleLeaveEvent() {
+    await deleteEventParticipation({ userId: user.$id, eventId: event.$id });
+  }
+
+  async function handleJoinEvent() {
+    if (!user) {
+      navigate("/login", {
+        state: {
+          message: "You must log in first",
+          from: location.pathname,
+        },
+      });
+      return;
+    }
+    await createEventParticipation({ userId: user.$id, eventId: event.$id });
+  }
 
   const search = location.state?.search || "";
   const status = location.state?.status || "all";
@@ -51,7 +77,21 @@ export default function EventDetail() {
           <span>${event.price}</span>/day
         </p>
         <p>{event.description}</p>
-        <button className={style["event-detail_btn"]}>Join this event</button>
+        {event.isSubscribed ? (
+          <button
+            onClick={handleLeaveEvent}
+            className={style["event-detail_btn_leave"]}
+          >
+            Sair do Evento
+          </button>
+        ) : (
+          <button
+            onClick={handleJoinEvent}
+            className={style["event-detail_btn"]}
+          >
+            {user ? "Join this event" : "Login to Join"}
+          </button>
+        )}
       </div>
     </div>
   );

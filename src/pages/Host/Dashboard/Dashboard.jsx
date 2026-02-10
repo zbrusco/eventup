@@ -1,45 +1,58 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { BsStarFill } from "react-icons/bs";
-import { getHostEvents } from "../../../api";
+import { getHostEvents, getSubscribedEvents } from "../../../api";
 import style from "./Dashboard.module.css";
+import { useAuth } from "../../../contexts/AuthContext";
 
 export default function Dashboard() {
-  const [events, setEvents] = React.useState([]);
+  const [hosted, setHosted] = React.useState([]);
+  const [subscribed, setSubscribed] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
+  const { user } = useAuth();
+
   React.useEffect(() => {
+    if (!user) return;
     setLoading(true);
-    getHostEvents()
-      .then((data) => setEvents(data))
+    Promise.all([getHostEvents(), getSubscribedEvents(user.$id)])
+      .then(([hostedEvents, subscribedEvents]) => {
+        setHosted(hostedEvents);
+        setSubscribed(subscribedEvents);
+      })
       .catch((err) => setError(err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [user]);
 
-  function renderEventElements(events) {
-    const hostEventsEls = events.map((event) => (
-      <div className={style.host_event_single} key={event.id}>
-        <img src={event.imageUrl} alt={`Photo of ${event.name}`} />
-        <div className={style.host_event_info}>
-          <h3>{event.name}</h3>
-          <p>${event.price}/day</p>
-        </div>
-        <Link className={style.host_dashboard_link} to={`events/${event.$id}`}>
-          View
-        </Link>
-      </div>
-    ));
+  function EventCards({ events, type }) {
+    if (!events || events.length === 0) return <p>No events found.</p>;
 
     return (
       <div className={style.host_events_list}>
-        <section>{hostEventsEls}</section>
+        <section>
+          {events.map((event) => {
+            const linkPath =
+              type === "host"
+                ? `events/${event.$id}`
+                : `subscriptions/${event.$id}`;
+
+            return (
+              <div className={style.host_event_single} key={event.$id}>
+                <img src={event.imageUrl} alt={event.name} />
+                <div className={style.host_event_info}>
+                  <h3>{event.name}</h3>
+                  <p>${event.price}/day</p>
+                </div>
+                <Link className={style.host_dashboard_link} to={linkPath}>
+                  View
+                </Link>
+              </div>
+            );
+          })}
+        </section>
       </div>
     );
   }
-
-  // if (loading) {
-  //     return <h1>Loading...</h1>
-  // }
 
   if (error) {
     return <h1>Error: {error.message}</h1>;
@@ -73,19 +86,29 @@ export default function Dashboard() {
       </section>
       <section className={style.host_dashboard_events}>
         <div className={style.top}>
-          <h2>Your listed events</h2>
+          <h2>Your hosted events</h2>
           <Link className={style.host_dashboard_link} to="events">
             View all
           </Link>
         </div>
-        {loading && !events ? (
+        {loading && !hosted ? (
           <h1>Loading...</h1>
         ) : (
-          <>{renderEventElements(events)}</>
+          <EventCards events={hosted} type="host" />
         )}
-        {/*<React.Suspense fallback={<h3>Loading...</h3>}>
-                    <Await resolve={loaderData.events}>{renderEventElements}</Await>
-                </React.Suspense>*/}
+      </section>
+      <section className={style.host_dashboard_events}>
+        <div className={style.top}>
+          <h2>Your subscriptions</h2>
+          <Link className={style.host_dashboard_link} to="subscriptions">
+            View all
+          </Link>
+        </div>
+        {loading && !subscribed ? (
+          <h1>Loading...</h1>
+        ) : (
+          <EventCards events={subscribed} type="participant" />
+        )}
       </section>
     </>
   );

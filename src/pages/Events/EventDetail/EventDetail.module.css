@@ -42,7 +42,8 @@
 .simple {
   background: #e17654;
 }
-.event-detail_btn {
+.event-detail_btn,
+.event-detail_btn_leave {
   width: 100%;
   color: white;
   font-weight: 600;
@@ -54,6 +55,12 @@
 }
 .event-detail_btn:hover {
   background: #e67d32;
+}
+.event-detail_btn_leave {
+  background: #ff3f38;
+}
+.event-detail_btn_leave:hover {
+  background: #e64d32;
 }
 .event-detail_content > p {
   margin: 0;
