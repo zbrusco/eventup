@@ -98,14 +98,18 @@ export default function Events() {
                   />
                   <div className={style.eventscard_title}>
                     <h1>{event.name}</h1>
-                    <h1>${event.price}</h1>
                   </div>
-                  <p>/day</p>
-                  <div
-                    className={`${style.eventscard_badge} ${style[event.status]}`}
-                  >
-                    {event.status.charAt(0).toUpperCase() +
-                      event.status.slice(1)}
+                  <div className={style.eventscard_bottom}>
+                    <div
+                      className={`${style.eventscard_badge} ${style[event.status]}`}
+                    >
+                      {event.status.charAt(0).toUpperCase() +
+                        event.status.slice(1)}
+                    </div>
+                    <div className={style.eventscard_pricing}>
+                      <span>${event.price}</span>
+                      /day
+                    </div>
                   </div>
                 </div>
               </Link>

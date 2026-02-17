@@ -57,8 +57,10 @@
 .eventscard_card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 10px;
   max-width: 230px;
+  height: 340px;
 }
 .eventscard_img {
   aspect-ratio: 1/1;
@@ -78,7 +80,7 @@
   border: none;
   border-radius: 5px;
   font-size: 1rem;
-  margin-top: -1rem;
+  align-content: center;
 }
 .eventscard_title {
   display: flex;
@@ -101,4 +103,18 @@
 }
 .simple {
   background: #e17654;
+}
+.eventscard_bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.eventscard_pricing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.eventscard_pricing > span {
+  font-weight: bold;
+  font-size: 1.25rem;
 }
