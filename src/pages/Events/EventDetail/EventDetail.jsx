@@ -8,7 +8,7 @@ import {
 } from "../../../api";
 import { useAuth } from "../../../contexts/AuthContext";
 
-export default function EventDetail({ isSubscription }) {
+export default function EventDetail() {
   const [event, setEvent] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -33,12 +33,23 @@ export default function EventDetail({ isSubscription }) {
       }
     }
     loadEvents();
-  }, [id]);
+  }, []);
 
   async function handleLeaveEvent() {
-    await deleteEventParticipation({ userId: user.$id, eventId: event.$id });
+    try {
+      await deleteEventParticipation({
+        userId: user.$id,
+        eventId: id,
+      });
+      // Update button
+      setEvent((prev) => ({
+        ...prev,
+        isSubscribed: false,
+      }));
+    } catch (err) {
+      console.error("Erro ao sair do evento:", err);
+    }
   }
-
   async function handleJoinEvent() {
     if (!user) {
       navigate("/login", {
@@ -49,7 +60,16 @@ export default function EventDetail({ isSubscription }) {
       });
       return;
     }
-    await createEventParticipation({ userId: user.$id, eventId: event.$id });
+    try {
+      await createEventParticipation({ userId: user.$id, eventId: event.$id });
+      // Update button
+      setEvent((prev) => ({
+        ...prev,
+        isSubscribed: true,
+      }));
+    } catch (err) {
+      console.error("Erro ao se inscrever no evento:", err);
+    }
   }
 
   const search = location.state?.search || "";
@@ -61,6 +81,51 @@ export default function EventDetail({ isSubscription }) {
   if (error) {
     return <h1 aria-live="assertive">There was an error: {error.message}</h1>;
   }
+
+  const isHost = user && event?.isHost;
+  const isSubscribed = user && event?.isSubscribed;
+
+  const renderButton = () => {
+    if (isHost) {
+      return (
+        <Link
+          to={`/host/events/${id}`}
+          className={style["event-detail_btn_host"]}
+        >
+          View event
+        </Link>
+      );
+    }
+
+    if (isSubscribed) {
+      return (
+        <button
+          onClick={handleLeaveEvent}
+          className={style["event-detail_btn_leave"]}
+        >
+          Leave Event
+        </button>
+      );
+    }
+
+    if (!user) {
+      return (
+        <Link
+          to="/login"
+          state={{ message: "You must log in first", from: location.pathname }}
+          className={style["event-detail_btn"]}
+        >
+          Login to Join
+        </Link>
+      );
+    }
+
+    return (
+      <button onClick={handleJoinEvent} className={style["event-detail_btn"]}>
+        Join this event
+      </button>
+    );
+  };
 
   return (
     <div className={style["event-detail_container"]}>
@@ -77,21 +142,7 @@ export default function EventDetail({ isSubscription }) {
           <span>${event.price}</span>/day
         </p>
         <p>{event.description}</p>
-        {event.isSubscribed ? (
-          <button
-            onClick={handleLeaveEvent}
-            className={style["event-detail_btn_leave"]}
-          >
-            Sair do Evento
-          </button>
-        ) : (
-          <button
-            onClick={handleJoinEvent}
-            className={style["event-detail_btn"]}
-          >
-            {user ? "Join this event" : "Login to Join"}
-          </button>
-        )}
+        {renderButton()}
       </div>
     </div>
   );

@@ -108,6 +108,7 @@ export async function getEventWithSubscription({ userId, eventId }) {
     return {
       ...event,
       isSubscribed: subscriptionResponse?.documents[0]?.eventId === eventId,
+      isHost: event.hostId === userId,
       registrationId: subscriptionResponse?.documents[0]?.$id || null,
     };
   } catch (error) {
@@ -160,12 +161,55 @@ export async function getEventParticipants(eventId) {
   }
 }
 export async function createEventParticipation({ eventId, userId }) {
-  console.log(`${userId} joined event ${eventId}`);
-  return;
+  try {
+    await databases.createDocument({
+      databaseId,
+      collectionId: registrationsId,
+      documentId: ID.unique(),
+      data: {
+        eventId: eventId,
+        userId: userId,
+      },
+    });
+    return { success: true };
+  } catch (error) {
+    throw {
+      message: "Erro ao realizar inscrição no evento",
+      statusText: error.message,
+      status: error.code,
+    };
+  }
 }
 export async function deleteEventParticipation({ eventId, userId }) {
-  console.log(`${userId} left event ${eventId}`);
-  return;
+  try {
+    const response = await databases.listDocuments({
+      databaseId,
+      collectionId: registrationsId,
+      queries: [Query.equal("eventId", eventId), Query.equal("userId", userId)],
+    });
+    if (response.documents.length > 0) {
+      const documentId = response.documents[0].$id;
+
+      // 2. Agora sim, deletamos pelo ID encontrado
+      await databases.deleteDocument({
+        databaseId,
+        collectionId: registrationsId,
+        documentId: documentId,
+      });
+      return { success: true };
+    }
+
+    throw new Error("Inscrição não encontrada.");
+  } catch (error) {
+    throw {
+      message: "Erro ao cancelar inscrição",
+      statusText: error.message,
+      status: error.code,
+    };
+  }
+}
+export async function deleteEvent({ eventId }) {
+  console.log(`Event ${eventId} was deleted!`);
 }
 export async function loginUser(creds) {
   try {

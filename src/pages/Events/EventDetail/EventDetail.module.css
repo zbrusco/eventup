@@ -43,24 +43,35 @@
   background: #e17654;
 }
 .event-detail_btn,
-.event-detail_btn_leave {
+.event-detail_btn_leave,
+.event-detail_btn_host {
   width: 100%;
   color: white;
   font-weight: 600;
-  background: #ff8c38;
   border: none;
   padding: 0.75rem 0;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+}
+.event-detail_btn {
+  background: #ff8c38;
 }
 .event-detail_btn:hover {
   background: #e67d32;
 }
 .event-detail_btn_leave {
-  background: #ff3f38;
+  background: #e53935;
 }
 .event-detail_btn_leave:hover {
-  background: #e64d32;
+  background: #c62828;
+}
+.event-detail_btn_host {
+  background: #2563eb;
+}
+.event-detail_btn_host:hover {
+  background: #1d4ed8;
 }
 .event-detail_content > p {
   margin: 0;
