@@ -6,66 +6,82 @@ O **EventUp** é uma plataforma de gestão colaborativa de eventos comunitários
 
 ## Tecnologias Utilizadas
 
-- **Frontend:** React (Vite)
-- **Roteamento:** React Router (SPA)
-- **Estado Global:** Context API (Auth e UI)
-- **Backend as a Service:** Appwrite (Autenticação e Database)
-- **Estilização:** CSS Modules
-
----
+- Frontend: React (Vite)
+- Roteamento: React Router (SPA)
+- Estado global: Context API (Auth e UI)
+- Backend as a Service: Appwrite (Authentication + Database)
+- Estilização: CSS Modules
 
 ## Funcionalidades
 
-- **Autenticação:** Login, Cadastro e Gerenciamento de sessão.
-- **Dashboard de Eventos:** Listagem dinâmica com filtros por localidade.
-- **CRUD Completo:** Criação, edição e exclusão de eventos pelos organizadores.
-- **Inscrições:** Sistema de "Participar/Sair" de eventos com persistência de dados.
-- **Mobile-First:** Interface adaptada para gestos e telas touch.
-
----
-
-## Perfis para Teste (Avaliação)
-
-Para fins de correção e validação dos múltiplos perfis de acesso, foram criadas as seguintes contas de teste:
-
-| Perfil        | E-mail         | Senha    |
-| :------------ | :------------- | :------- |
-| **Usuario 1** | user1@user.com | 12345678 |
-| **Usuario 2** | user2@user.com | 12345678 |
-| **Usuario 3** | user3@user.com | 12345678 |
-
----
+- Autenticação: login, cadastro e gerenciamento de sessao
+- Dashboard de eventos
+- CRUD de eventos para organizadores
+- Inscricao e cancelamento em eventos com persistencia
+- Interface responsiva (mobile-first)
 
 ## Como Rodar o Projeto
 
-1. Clone o repositório:
+1. Clone o repositorio
 
-   ```bash
-   git clone https://github.com/zbrusco/eventup.git
-   ```
+```bash
+git clone https://github.com/zbrusco/eventup.git
+cd eventup
+```
 
-2. Instale as dependências:
+2. Instale as dependências
 
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
-3. Configure as variáveis de ambiente em um arquivo .env (IDs do Appwrite.
+3. Configure o Appwrite
 
-   Exemplo:
+No Appwrite, crie:
 
-   ```bash
-   VITE_APPWRITE_PROJECT_ID = "seu_id_do_projeto"
-   VITE_APPWRITE_DATABASE_ID = "seu_id_do_banco"
-   VITE_APPWRITE_PROJECT_NAME = "nome_do_projeto"
-   VITE_APPWRITE_ENDPOINT = "endpoint_appwrite"
-   VITE_APPWRITE_EVENTS_COLLECTION_ID = "id_da_colecao_eventos"
-   VITE_APPWRITE_REGISTRATIONS_ID = "id_da_colecao_inscricoes"
-   VITE_APPWRITE_USERS_ID = "id_da_colecao_usuarios"
-   ```
+- 1 Database
+- 3 Collections:
+  - `events`
+  - `registrations`
+  - `users`
 
-4. Inicie o servidor.
+### Estrutura esperada
 
-   ```bash
-   npm run dev
-   ```
+#### Collection `events`
+
+- `name` (string)
+- `description` (string)
+- `price` (number)
+- `imageUrl` (string)
+- `status` (string)
+- `hostId` (string)
+- `date` (datetime — UTC, formato ISO 8601)
+
+#### Collection `registrations`
+
+- `eventId` (string)
+- `userId` (string)
+
+#### Collection `users`
+
+- `name` (string)
+- `avatar` (string)
+- `documentId` igual ao `$id` da conta criada no Appwrite Auth
+
+4. Crie o arquivo `.env` na raiz com os IDs do seu projeto Appwrite
+
+```bash
+VITE_APPWRITE_PROJECT_ID="seu_project_id"
+VITE_APPWRITE_DATABASE_ID="seu_database_id"
+VITE_APPWRITE_PROJECT_NAME="seu_project_name"
+VITE_APPWRITE_ENDPOINT="https://seu-endpoint/v1"
+VITE_APPWRITE_EVENTS_COLLECTION_ID="seu_events_collection_id"
+VITE_APPWRITE_REGISTRATIONS_ID="seu_registrations_collection_id"
+VITE_APPWRITE_USERS_ID="seu_users_collection_id"
+```
+
+5. Inicie o servidor
+
+```bash
+npm run dev
+```
