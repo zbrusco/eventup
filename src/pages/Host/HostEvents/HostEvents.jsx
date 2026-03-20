@@ -52,7 +52,16 @@ export default function HostEvents({ isSubscription }) {
 
   return (
     <section className={style.host_events_section}>
-      <h1 className={style.host_events_title}>Your listed events</h1>
+      <div className={style.host_events_title}>
+        <h1 className={style.host_events_title}>
+          {isSubscription ? "Your registered events" : "Your hosted events"}
+        </h1>
+        {!isSubscription && (
+          <Link to="/host/events/new" className={style.create_event_btn}>
+            Create Event
+          </Link>
+        )}
+      </div>
       <div className={style.host_events_container}>{eventEls}</div>
     </section>
   );

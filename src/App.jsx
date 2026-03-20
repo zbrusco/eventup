@@ -10,6 +10,7 @@ import {
   HostEventParticipants,
   HostEventPricing,
   HostEventPhotos,
+  HostEventCreate,
   HostEvents,
   Login,
   NotFound,
@@ -51,6 +52,7 @@ export default function App() {
                   <Route path="pricing" element={<HostEventPricing />} />
                   <Route path="photos" element={<HostEventPhotos />} />
                 </Route>
+                <Route path="events/new" element={<HostEventCreate />} />
                 <Route
                   path="subscriptions"
                   element={<HostEvents isSubscription={true} />}

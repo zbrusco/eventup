@@ -56,6 +56,11 @@ export default function Events() {
   return (
     <div className={style.events_container}>
       <h1>Explore our event options</h1>
+
+      <Link to="/host/events/new" className={style.create_event_btn}>
+        Host an Event
+      </Link>
+
       {eventsFiltered && (
         <>
           <div className={style.events_filters}>

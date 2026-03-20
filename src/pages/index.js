@@ -10,6 +10,7 @@ export { default as HostEventDetail } from "./Host/HostEventLayout/HostEventDeta
 export { default as HostEventParticipants } from "./Host/HostEventLayout/HostEventParticipants/HostEventParticipants";
 export { default as HostEventPhotos } from "./Host/HostEventLayout/HostEventPhotos/HostEventPhotos";
 export { default as HostEventPricing } from "./Host/HostEventLayout/HostEventPricing/HostEventPricing";
+export { default as HostEventCreate } from "./Host/HostEventCreate/HostEventCreate";
 export { default as HostEvents } from "./Host/HostEvents/HostEvents";
 export { default as Income } from "./Host/Income/Income";
 export { default as Reviews } from "./Host/Reviews/Reviews";
