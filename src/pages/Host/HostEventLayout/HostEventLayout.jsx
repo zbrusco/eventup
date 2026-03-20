@@ -1,7 +1,7 @@
 import style from "./HostEventLayout.module.css";
 import React from "react";
 import { useParams, NavLink, Outlet } from "react-router-dom";
-import { getHostEvents } from "../../../api";
+import { getHostEvents, deleteEvent } from "../../../api";
 
 export default function HostVanDetail() {
   const [event, setEvent] = React.useState(null);
@@ -36,6 +36,9 @@ export default function HostVanDetail() {
     return <h1 aria-live="assertive">There was an error: {error.message}</h1>;
   }
 
+  async function handleDeleteEvent() {
+    await deleteEvent({ eventId: event.$id });
+  }
   return (
     <div className={style["host_event_detail_container"]}>
       <NavLink
@@ -89,6 +92,12 @@ export default function HostVanDetail() {
           </NavLink>
         </div>
         <Outlet context={{ event }} />
+        <button
+          onClick={handleDeleteEvent}
+          className={style["host_event_detail_button"]}
+        >
+          Delete event
+        </button>
       </div>
     </div>
   );

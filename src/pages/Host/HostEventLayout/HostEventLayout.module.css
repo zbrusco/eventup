@@ -75,3 +75,18 @@
 .host_event_detail_price > span {
   font-weight: bold;
 }
+.host_event_detail_button {
+  color: white;
+  font-weight: 600;
+  border: none;
+  padding: 0.75rem 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  background: #e53935;
+  margin: 1rem auto;
+}
+.host_event_detail_button:hover {
+  background: #c62828;
+}
