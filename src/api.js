@@ -180,26 +180,51 @@ export async function createEventParticipation({ eventId, userId }) {
     };
   }
 }
+
+export async function createEvent(eventData) {
+  try {
+    const response = await databases.createDocument({
+      databaseId,
+      collectionId,
+      documentId: ID.unique(),
+      data: eventData,
+    });
+    return response;
+  } catch (error) {
+    throw {
+      message: "Erro ao criar evento",
+      statusText: error.message,
+      status: error.code,
+    };
+  }
+}
 export async function deleteEventParticipation({ eventId, userId }) {
   try {
+    const queries = [Query.equal("eventId", eventId)];
+    if (userId) {
+      queries.push(Query.equal("userId", userId));
+    }
+
     const response = await databases.listDocuments({
       databaseId,
       collectionId: registrationsId,
-      queries: [Query.equal("eventId", eventId), Query.equal("userId", userId)],
+      queries: queries,
     });
-    if (response.documents.length > 0) {
-      const documentId = response.documents[0].$id;
 
-      // 2. Agora sim, deletamos pelo ID encontrado
-      await databases.deleteDocument({
-        databaseId,
-        collectionId: registrationsId,
-        documentId: documentId,
-      });
+    if (response.documents.length > 0) {
+      const deletePromises = response.documents.map((doc) =>
+        databases.deleteDocument({
+          databaseId,
+          collectionId: registrationsId,
+          documentId: doc.$id,
+        }),
+      );
+      await Promise.all(deletePromises);
       return { success: true };
     }
 
-    throw new Error("Inscrição não encontrada.");
+    if (userId) throw new Error("Inscrição não encontrada.");
+    return { success: true };
   } catch (error) {
     throw {
       message: "Erro ao cancelar inscrição",
@@ -209,7 +234,21 @@ export async function deleteEventParticipation({ eventId, userId }) {
   }
 }
 export async function deleteEvent({ eventId }) {
-  console.log(`Event ${eventId} was deleted!`);
+  try {
+    await deleteEventParticipation({ eventId });
+    await databases.deleteDocument({
+      databaseId,
+      collectionId,
+      documentId: eventId,
+    });
+    return { success: true };
+  } catch (error) {
+    throw {
+      message: "Failed to delete event",
+      statusText: error.message,
+      status: error.code,
+    };
+  }
 }
 export async function loginUser(creds) {
   try {
@@ -225,8 +264,8 @@ export async function loginUser(creds) {
     };
   } catch (error) {
     throw {
-      message: error.message,
-      statusText: "Unauthorized",
+      message: "Unauthorized",
+      statusText: error.message,
       status: error.code,
     };
   }
@@ -248,13 +287,32 @@ export async function registerUser(email, password, name) {
   try {
     const newAcc = await account.create(ID.unique(), email, password, name);
 
+    // Demonstração de consumo de API pública REST
+    const fetchAvatar = async () => {
+      const avatarUrl = `https://ui-avatars.com/api/?name=${name}`;
+      try {
+        const response = await fetch(avatarUrl);
+        if (response.ok) {
+          return avatarUrl;
+        }
+      } catch (error) {
+        throw {
+          message: "Failed to fetch user avatar",
+          statusText: error.message,
+          status: error.code,
+        };
+      }
+    };
+
+    const finalAvatarUrl = await fetchAvatar();
+
     await databases.createDocument({
       databaseId,
       collectionId: usersId,
       documentId: newAcc.$id,
       data: {
         name: name,
-        avatar: `https://ui-avatars.com/api/?name=${name}`,
+        avatar: finalAvatarUrl,
       },
     });
 
