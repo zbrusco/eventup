@@ -1,13 +1,14 @@
 import React from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import style from "./Login.module.css";
-import { loginUser } from "../../api";
+import style from "./Register.module.css";
+import { registerUser } from "../../api";
 import { useAuth } from "../../contexts/AuthContext";
 
-export default function Login() {
-  const [loginFormData, setLoginFormData] = React.useState({
+export default function Register() {
+  const [registerFormData, setRegisterFormData] = React.useState({
     email: "",
     password: "",
+    name: "",
   });
   const [status, setStatus] = React.useState("idle");
   const [error, setError] = React.useState(null);
@@ -20,7 +21,7 @@ export default function Login() {
     e.preventDefault();
     setStatus("submitting");
 
-    loginUser({ email: loginFormData.email, password: loginFormData.password })
+    registerUser(registerFormData.email, registerFormData.password, registerFormData.name)
       .then((data) => {
         setUser(data.user);
         navigate(from, { replace: true });
@@ -32,30 +33,35 @@ export default function Login() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setLoginFormData((prev) => ({
+    setRegisterFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   }
 
-  const message = location.state?.message || "";
-
   return (
-    <div className={style.login_container}>
-      {message && <h3 className={style.login_first}>{message}</h3>}
-      <h1>Sign in to your account</h1>
+    <div className={style.register_container}>
+      <h1>Create your account</h1>
       {error?.message && (
-        <h3 className={style.login_error} aria-live="assertive">
+        <h3 className={style.register_error} aria-live="assertive">
           {error.message}
         </h3>
       )}
-      <form onSubmit={handleSubmit} className={style.login_form}>
+      <form onSubmit={handleSubmit} className={style.register_form}>
+        <input
+          name="name"
+          onChange={handleChange}
+          type="text"
+          placeholder="Full Name"
+          value={registerFormData.name}
+          required
+        />
         <input
           name="email"
           onChange={handleChange}
           type="email"
           placeholder="Email address"
-          value={loginFormData.email}
+          value={registerFormData.email}
           required
         />
         <input
@@ -63,24 +69,33 @@ export default function Login() {
           onChange={handleChange}
           type="password"
           placeholder="Password"
-          value={loginFormData.password}
+          value={registerFormData.password}
           required
         />
         <button
           disabled={status === "submitting"}
           className={status === "submitting" ? style.disabled : ""}
         >
-          {status === "submitting" ? "Logging in..." : "Log in"}
+          {status === "submitting" ? "Creating account..." : "Create Account"}
         </button>
       </form>
-      <div className={style.register_container}>
-        <p>Don't have an account?</p>
-        <Link
-          to="/register"
+      <div style={{ marginTop: "20px", textAlign: "center" }}>
+        <p>Already have an account?</p>
+        <Link 
+          to="/login"
           state={{ from: from }}
-          className={style.register_link}
+          style={{
+            background: "none",
+            border: "none",
+            color: "#ff8c38",
+            textDecoration: "underline",
+            cursor: "pointer",
+            fontWeight: "bold",
+            display: "inline-block",
+            padding: "5px"
+          }}
         >
-          Register here
+          Log in instead
         </Link>
       </div>
     </div>

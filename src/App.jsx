@@ -18,6 +18,7 @@ import {
   EventDetail,
   Events,
 } from "./pages";
+import Register from "./pages/Register/Register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -31,6 +32,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
             <Route path="events" element={<Events />} />
             <Route path="events/:id" element={<EventDetail />} />
 
@@ -53,10 +55,7 @@ export default function App() {
                   path="subscriptions"
                   element={<HostEvents isSubscription={true} />}
                 />
-                <Route
-                  path="subscriptions/:id"
-                  element={<EventDetail isSubscription={true} />}
-                />
+                <Route path="subscriptions/:id" element={<EventDetail />} />
               </Route>
             </Route>
             <Route path="*" element={<NotFound />} />
