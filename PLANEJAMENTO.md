@@ -23,40 +23,51 @@ Aplicação do framework Scrum adaptado para desenvolvimento individual:
 
 ## 4. Histórias de Usuário (HUs)
 
-### HU1 - Visualização e Filtro (API Externa)
+### HU1 - Visualização e Filtro (Concluído)
 
 **Como** um usuário, **eu quero** visualizar a lista de eventos e filtrar por local, **para que** eu possa encontrar atividades do meu interesse.
 
-- **C.A. (Requisitos Funcionais):** Listagem de eventos recuperados do banco de dados (Appwrite); Filtro de pesquisa pelo local do evento; Funcionalidade sem page-reload.
-- **C.A. (Requisitos Não Funcionais):** Layout responsivo (mobile e desktop); Alta performance na filtragem e renderização dos cartões; Tempos de carregamento de imagens ou dados externos em no máximo 2 segundos.
+- **C.A. (Requisitos Funcionais):** Listagem de eventos recuperados do banco de dados (Appwrite); Filtro de pesquisa pelo status/tipo do evento; Funcionalidade sem page-reload.
+- **C.A. (Requisitos Não Funcionais):** Layout responsivo (mobile e desktop); Alta performance na filtragem e renderização dos cartões; Tempos de carregamento otimizados de imagens.
 
-### HU2 - Gerenciamento Mobile (Gestos)
-
-**Como** um organizador, **eu quero** gerenciar meus eventos de forma rápida no celular, **para que** eu possa manter minha lista organizada.
-
-- **C.A. (Requisitos Funcionais):** Interface touch-friendly; Gesto de _swipe_ para a esquerda para revelar o botão de exclusão; Botão de excluir aciona deleção definitiva no sistema.
-- **C.A. (Requisitos Não Funcionais):** Animação deve ser fluida (60fps); Compatibilidade multi-browser em dispositivos mobile; Resposta visual e feedback táctil à ação (menos de 200ms de atraso).
-
-### HU3 - Registro de Usuário com Avatar Dinâmico
+### HU2 - Registro de Usuário com Avatar Dinâmico (Concluído)
 
 **Como** um novo usuário, **eu quero** poder criar uma conta gerando um ícone automaticamente através de API REST, **para que** meu perfil possua uma identidade visual rápida logo que ingresso no sistema.
 
-- **C.A. (Requisitos Funcionais):** Tela de registro com validaçao de form; Fetch de ícone da API pública com tratamento da resposta e uso de URL do icone.
-- **C.A. (Requisitos Não Funcionais):** Segurança: senhas não transmitidas em plain text; Integração não deve bloquear uso geral da tela (chamadas assíncronas).
--
+- **C.A. (Requisitos Funcionais):** Tela de registro segregada e com validação de form; Fetch de ícone da API pública com tratamento da resposta e uso da URL gerada.
+- **C.A. (Requisitos Não Funcionais):** Segurança e separação de rotas (`/register` vs `/login`); Integração fluída sem bloquear a thread principal.
 
-## 5. Backlog de Próximas Atividades (Priorizado)
+### HU3 - Criação e Deleção de Eventos (Concluído)
 
-O Backlog das próximas atividades baseia-se num fluxo de valor ágil, definindo a ordem pelas dependências e impacto no usuário final.
+**Como** um organizador (Host), **eu quero** poder criar novos eventos definindo seus detalhes e deletar os existentes, **para que** eu tenha controle do meu portfólio na plataforma.
 
-1.  **Prioridade Alta: Tela de registro de usuário**
-    - Necessária pois sem criação de contas, ninguém inicia o fluxo da aplicação. A conta e armazenamento de avatar dependem dessa etapa.
-2.  **Prioridade Média-Alta: Deleção de eventos no `api.js` (Finalizado)**
-    - Implementar a função CRUD real para complementar o módulo de eventos, permitindo ao dono do evento gerenciar sua estabilidade.
-3.  **Prioridade Média: Sistema de navegação**
-    - Já está parcialmente implementado/funcionando com React Router, porém deve ser revisado caso haja novas páginas e conferir rotas privadas.
-4.  **Prioridade Baixa/Contínua: Testes com React Testing Library**
-    - Importante para garantir a qualidade, mas usualmente entra como critério `Done` iterativo ao longo das sprints ou na fase de estabilização estrutural.
+- **C.A. (Requisitos Funcionais):** Formulário de criação restrito aos organizadores (rota privada); Exclusão em cascata (apagando o evento e suas inscrições vinculadas).
+- **C.A. (Requisitos Não Funcionais):** Retorno de status de _loading_ ("Creating Event..."); Proteção via contexto de autenticação; UX limpa e organizada no formulário.
+
+### HU4 - Gerenciamento Mobile (Swipe-to-delete) (Pendente)
+
+**Como** um organizador, **eu quero** gerenciar meus eventos de forma rápida no celular, **para que** eu possa manter minha lista organizada com gestos simples.
+
+- **C.A. (Requisitos Funcionais):** Interface touch-friendly; Gesto de _swipe_ (deslizar) para a esquerda para revelar o botão de exclusão.
+- **C.A. (Requisitos Não Funcionais):** Animação deve ser fluida (60fps); Compatibilidade touch/mobile; Resposta visual e feedback táctil à ação.
+
+## 5. Backlog de Próximas Atividades (Atualizado: MVP Entregue)
+
+Com as entregas mais recentes fundamentadas no React Router, Contexto de Autenticação e integrações diretas com o Appwrite, os requisitos principais do projeto foram preenchidos de prontidão.
+
+**Entregas Concluídas (MVP Finalizado):**
+
+- Tela de login e registro de usuários completas com consumo de API.
+- Deleção (em cascata) de eventos e inscrições no `api.js`.
+- Interface de criação de eventos validada e disponível a usuários qualificados.
+- Sistema de navegação por abas com segurança e validação privada.
+
+**Atividades Futuras (Bônus / Refinamento):**
+
+1.  **Prioridade Alta: Swipe-to-delete Mobile**
+    - Desafio técnico extra que consiste em criar a interação na tela de HostEvents envolvendo captura de gestos (Touch API ou bibliotecas como _framer-motion_/_react-use-gesture_).
+2.  **Prioridade Media: Testes com React Testing Library**
+    - Aumentar a cobertura do código garantindo que formulários se comportam conforme o esperado, cobrindo mocks e montagem de componentes.
 
 ## 6. Arquitetura e Tecnologias
 
