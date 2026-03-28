@@ -2,31 +2,33 @@ import style from "./Reviews.module.css";
 import React, { useState, useEffect } from "react";
 import { BsStarFill } from "react-icons/bs";
 import ReviewGraph from "../../../assets/images/reviews-graph.png";
+import { fetchReviewsData } from "../../../api";
+
 export default function Reviews() {
   const [reviewsData, setReviewsData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    async function fetchReviews() {
+    async function loadReviews() {
       try {
-        const response = await fetch("/reviews.json");
-        if (!response.ok) {
-          throw new Error("Failed to fetch reviews");
-        }
-        const data = await response.json();
+        const data = await fetchReviewsData();
         setReviewsData(data);
-      } catch (error) {
-        console.error("Error fetching reviews data:", error);
+      } catch (e) {
+        setError(e.message);
       } finally {
         setLoading(false);
       }
     }
 
-    fetchReviews();
+    loadReviews();
   }, []);
 
   if (loading) {
     return <h1 aria-live="polite">Loading...</h1>;
+  }
+  if (error) {
+    return <h1 aria-live="polite">{error}</h1>;
   }
 
   return (

@@ -325,3 +325,19 @@ export async function registerUser(email, password, name) {
     };
   }
 }
+
+export async function fetchReviewsData() {
+  try {
+    const response = await fetch("/reviews.json");
+    if (!response.ok) {
+      throw new Error("Failed to fetch reviews");
+    }
+    return await response.json();
+  } catch (error) {
+    throw {
+      message: "Erro ao carregar avaliações",
+      statusText: error.message,
+      status: error.code || 500,
+    };
+  }
+}
