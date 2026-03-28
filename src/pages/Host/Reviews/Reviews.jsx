@@ -1,23 +1,33 @@
 import style from "./Reviews.module.css";
+import React, { useState, useEffect } from "react";
 import { BsStarFill } from "react-icons/bs";
 import ReviewGraph from "../../../assets/images/reviews-graph.png";
 export default function Reviews() {
-  const reviewsData = [
-    {
-      rating: 5,
-      name: "Elliot",
-      date: "January 3, 2023",
-      text: "The beach bum is such an awesome van! Such a comfortable trip. We had it for 2 weeks and there was not a single issue. Super clean when we picked it up and the host is very comfortable and understanding. Highly recommend!",
-      id: "1",
-    },
-    {
-      rating: 5,
-      name: "Sandy",
-      date: "December 12, 2022",
-      text: "This is our third time using the Modest Explorer for our travels and we love it! No complaints, absolutely perfect!",
-      id: "2",
-    },
-  ];
+  const [reviewsData, setReviewsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchReviews() {
+      try {
+        const response = await fetch("/reviews.json");
+        if (!response.ok) {
+          throw new Error("Failed to fetch reviews");
+        }
+        const data = await response.json();
+        setReviewsData(data);
+      } catch (error) {
+        console.error("Error fetching reviews data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchReviews();
+  }, []);
+
+  if (loading) {
+    return <h1 aria-live="polite">Loading...</h1>;
+  }
 
   return (
     <section className={style.host_reviews}>
