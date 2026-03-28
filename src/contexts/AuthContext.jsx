@@ -1,7 +1,7 @@
 import React from "react";
 import { account } from "../appwrite";
 
-const AuthContext = React.createContext();
+export const AuthContext = React.createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = React.useState("loading");
