@@ -77,10 +77,13 @@
   background-color: white;
   margin-bottom: 15px;
   padding: 18px 24px;
+  border-radius: 5px;
 }
 
 .host_event_single > img {
   height: 70px;
+  width: 70px;
+  object-fit: cover;
   border-radius: 5px;
   margin-right: 17px;
 }

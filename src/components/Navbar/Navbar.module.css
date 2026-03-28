@@ -2,19 +2,22 @@
   background: #fff7ed;
   padding: 2.25rem 1.5rem;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
 }
 .navbar_logo {
-  max-width: 30%;
   text-decoration: none;
   color: inherit;
 }
 .navbar_nav {
   display: flex;
   flex-direction: row;
-  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 .navbar_nav > a {
   text-decoration: none;
@@ -35,7 +38,8 @@
   justify-content: center;
 }
 .login_icon {
-  height: 70%;
+  height: 25px;
+  width: 25px;
 }
 .navbar_logout {
   border: none;
@@ -50,6 +54,13 @@
   color: #161616;
 }
 @media (min-width: 720px) {
+  .navbar_container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .navbar_nav {
+    gap: 30px;
+  }
   .navbar_nav > a {
     font-size: 1.5rem;
   }

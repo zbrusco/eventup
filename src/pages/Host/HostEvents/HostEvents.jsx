@@ -53,7 +53,7 @@ export default function HostEvents({ isSubscription }) {
   return (
     <section className={style.host_events_section}>
       <div className={style.host_events_title}>
-        <h1 className={style.host_events_title}>
+        <h1 className={style.host_events_title_header}>
           {isSubscription ? "Your registered events" : "Your hosted events"}
         </h1>
         {!isSubscription && (

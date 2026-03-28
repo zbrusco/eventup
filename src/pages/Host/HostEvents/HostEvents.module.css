@@ -1,6 +1,6 @@
-.host_events_title {
+.host_events_title_header {
   margin: 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
 }
 .host_events_container {
@@ -19,34 +19,48 @@
   padding: 1.25rem 1.5rem;
   display: flex;
   flex-direction: row;
-  height: 70px;
+  min-height: 70px;
+  height: auto;
   text-decoration: none;
   color: inherit;
   gap: 15px;
   align-items: center;
 }
 .host_events_wrapper > img {
-  height: 100%;
+  width: 70px;
+  height: 70px;
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 5px;
 }
+.host_events_info > h3 {
+  margin-block: 5px;
+}
 .host_events_info > p {
   color: #4d4d4d;
+  margin-block: 5px;
 }
 .host_events_title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 .create_event_btn {
   background: #ff8c38;
   color: white;
-  padding: 8px 16px;
+  padding: 6px 12px;
   border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  margin: auto;
+}
+@media (min-width: 720px) {
+  .create_event_btn {
+    margin: 0;
+  }
 }
 .create_event_btn:hover {
   background: #f76c09;
