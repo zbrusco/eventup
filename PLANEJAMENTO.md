@@ -58,16 +58,10 @@ Com as entregas mais recentes fundamentadas no React Router, Contexto de Autenti
 **Entregas Concluídas (MVP Finalizado):**
 
 - Tela de login e registro de usuários completas com consumo de API.
-- Deleção (em cascata) de eventos e inscrições no `api.js`.
-- Interface de criação de eventos validada e disponível a usuários qualificados.
-- Sistema de navegação por abas com segurança e validação privada.
-
-**Atividades Futuras (Bônus / Refinamento):**
-
-1.  **Prioridade Alta: Swipe-to-delete Mobile**
-    - Desafio técnico extra que consiste em criar a interação na tela de HostEvents envolvendo captura de gestos (Touch API ou bibliotecas como _framer-motion_/_react-use-gesture_).
-2.  **Prioridade Media: Testes com React Testing Library**
-    - Aumentar a cobertura do código garantindo que formulários se comportam conforme o esperado, cobrindo mocks e montagem de componentes.
+- Readequação do domínio da aplicação e implementação de navegação SPA com abas seguras.
+- Módulo de eventos operante (CRUD - Criação e Deleção em cascata).
+- Lógica de participação dinâmica em eventos.
+- Estilização responsiva e polimento mobile-first finalizados.
 
 ## 6. Arquitetura e Tecnologias
 
@@ -79,7 +73,8 @@ Com as entregas mais recentes fundamentadas no React Router, Contexto de Autenti
 
 ## 7. Cronograma de Sprints
 
-1.  **Sprint 1:** Fundação, Router e Integração com Appwrite Auth.
-2.  **Sprint 2:** CRUD de Eventos, Dashboard e Refatoração de Domínio.
-3.  **Sprint 3:** Lógica de Inscrição e Detalhes do Evento.
-4.  **Sprint 4:** Implementação de Gestos Mobile (Swipe), Admin Panel e Polimento.
+1.  **Sprint 1:** Fundação da aplicação em React, Setup da Arquitetura de Roteamento e Contexto de Autenticação.
+2.  **Sprint 2:** Refatoração de escopo (Domínio para Eventos) e construção de Componentes base e ligações com API.
+3.  **Sprint 3:** Desdobramento Funcional Completo (Login, Registro, Deleção, Participação e Criação de Eventos).
+4.  **Sprint 4:** Finalização de pendências da Sprint 3 para implementação completa do CRUD.
+5.  **Sprint 5:** Revisão Geral das C.As e Histórias de Usuário, docs e ajustes finais de Estilização mobile, Polimento de Layout e implementação de testes.

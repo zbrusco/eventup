@@ -14,10 +14,10 @@ O **EventUp** é uma plataforma de gestão colaborativa de eventos comunitários
 
 ## Funcionalidades
 
-- Autenticação: login, cadastro e gerenciamento de sessao
+- Autenticação: login, cadastro e gerenciamento de sessão
 - Dashboard de eventos
 - CRUD de eventos para organizadores
-- Inscricao e cancelamento em eventos com persistencia
+- Inscrição e cancelamento em eventos com persistência
 - Interface responsiva (mobile-first)
 
 ## Como Rodar o Projeto
@@ -51,11 +51,12 @@ No Appwrite, crie:
 
 - `name` (string)
 - `description` (string)
-- `price` (number)
-- `imageUrl` (string)
-- `status` (string)
-- `hostId` (string)
 - `date` (datetime — UTC, formato ISO 8601)
+- `location` (string)
+- `imageUrl` (string)
+- `hostId` (string)
+- `status` (string)
+- `price` (number)
 
 #### Collection `registrations`
 
@@ -66,7 +67,6 @@ No Appwrite, crie:
 
 - `name` (string)
 - `avatar` (string)
-- `documentId` igual ao `$id` da conta criada no Appwrite Auth
 
 4. Crie o arquivo `.env` na raiz com os IDs do seu projeto Appwrite
 
