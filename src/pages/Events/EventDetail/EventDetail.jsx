@@ -108,6 +108,18 @@ export default function EventDetail() {
       );
     }
 
+    if (event.status === "cancelled") {
+      return (
+        <button
+          disabled
+          className={style["event-detail_btn_leave"]}
+          style={{ cursor: "not-allowed", backgroundColor: "#ccc", color: "#666" }}
+        >
+          Event Cancelled
+        </button>
+      );
+    }
+
     if (!user) {
       return (
         <Link
