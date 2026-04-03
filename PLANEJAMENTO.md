@@ -44,13 +44,6 @@ Aplicação do framework Scrum adaptado para desenvolvimento individual:
 - **C.A. (Requisitos Funcionais):** Formulário de criação restrito aos organizadores (rota privada); Exclusão em cascata (apagando o evento e suas inscrições vinculadas).
 - **C.A. (Requisitos Não Funcionais):** Retorno de status de _loading_ ("Creating Event..."); Proteção via contexto de autenticação; UX limpa e organizada no formulário.
 
-### HU4 - Gerenciamento Mobile (Swipe-to-delete) (Pendente)
-
-**Como** um organizador, **eu quero** gerenciar meus eventos de forma rápida no celular, **para que** eu possa manter minha lista organizada com gestos simples.
-
-- **C.A. (Requisitos Funcionais):** Interface touch-friendly; Gesto de _swipe_ (deslizar) para a esquerda para revelar o botão de exclusão.
-- **C.A. (Requisitos Não Funcionais):** Animação deve ser fluida (60fps); Compatibilidade touch/mobile; Resposta visual e feedback táctil à ação.
-
 ## 5. Backlog de Próximas Atividades (Atualizado: MVP Entregue)
 
 Com as entregas mais recentes fundamentadas no React Router, Contexto de Autenticação e integrações diretas com o Appwrite, os requisitos principais do projeto foram preenchidos de prontidão.
